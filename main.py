@@ -1,16 +1,37 @@
-# This is a sample Python script.
+# ДЗ 11.1. Генератор простих чисел
+# Напишіть функцію-генератор prime_generator, яка повертатиме прості числа. Верхня межа цього діапазону визначається параметром цієї функції.
+# Наприклад, виклик функції
+# list(prime_generator(10)) повинен відповідати послідовності з чисел [2, 3, 5, 7] .
+# Наступне число в цій послідовності - 11 і воно більше 10 тому воно не потрапляє в цей ряд
+# def prime_generator(end):
+#     pass
+#
+# from inspect import isgenerator
+#
+# gen = prime_generator(1)
+# assert isgenerator(gen) == True, 'Test0'
+# assert list(prime_generator(10)) == [2, 3, 5, 7], 'Test1'
+# assert list(prime_generator(15)) == [2, 3, 5, 7, 11, 13], 'Test2'
+# assert list(prime_generator(29)) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29], 'Test3'
+# print('Ok')
+def prime_generator(end):
+    def is_prime(number):
+        if number <= 1:
+            return False
+        for i in range(2, int(number**0.5) + 1):
+            if number % i == 0:
+                return False
+        return True
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+    for num in range(2, end + 1):
+        if is_prime(num):
+            yield num
 
+from inspect import isgenerator
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+gen = prime_generator(1)
+assert isgenerator(gen) == True, 'Test0'
+assert list(prime_generator(10)) == [2, 3, 5, 7], 'Test1'
+assert list(prime_generator(15)) == [2, 3, 5, 7, 11, 13], 'Test2'
+assert list(prime_generator(29)) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29], 'Test3'
+print('Ok')
